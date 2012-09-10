@@ -14,11 +14,9 @@ module Devise
       # fail (if we're just returning from the CAS server, based on the referrer)
       # or attempt to redirect to the CAS server's login URL.
       def authenticate!
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{params.inspect}\n") }
         ticket = read_ticket(params)
 
-				xml = ::CASClient::XmlResponse.xml
+				xml = ::CASClient::XmlResponse
 				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
 				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml.inspect}\n") }
 
@@ -48,9 +46,6 @@ module Devise
       def read_ticket(params)
         ticket = params[:ticket]
         return nil unless ticket
-        File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{request.url}\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{mapping.inspect}\n") }
-				
         service_url = ::Devise.cas_service_url(request.url, mapping)
         if ticket =~ /^PT-/
           ::CASClient::ProxyTicket.new(ticket, service_url, params[:renew])
