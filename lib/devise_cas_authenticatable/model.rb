@@ -30,14 +30,12 @@ module Devise
             resource = new(conditions) if (resource.nil? and ::Devise.cas_create_user?)
             return nil unless resource
             
-						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - ticket respond_to?\n") }
-						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.public_methods.inspect}\n") }
-						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - extra\n") }
-						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.extra_attributes.inspect}\n") }
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - as json\n") }
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.to_json}\n") }
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - as json\n") }
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.extra_attributes.to_json}\n") }
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - response\n") }
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.response.inspect}\n") }
 
             if resource.respond_to? :cas_extra_attributes=
               resource.cas_extra_attributes = ticket.respond_to?(:extra_attributes) ? ticket.extra_attributes : ticket.response.extra_attributes
