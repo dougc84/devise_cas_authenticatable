@@ -49,7 +49,7 @@ module Devise
         ticket = params[:ticket]
         return nil unless ticket
         File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{request.url}\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{mapping}\n") }
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{mapping.inspect}\n") }
 				
         service_url = ::Devise.cas_service_url(request.url, mapping)
         if ticket =~ /^PT-/
