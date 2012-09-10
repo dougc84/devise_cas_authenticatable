@@ -14,8 +14,8 @@ module Devise
       # fail (if we're just returning from the CAS server, based on the referrer)
       # or attempt to redirect to the CAS server's login URL.
       def authenticate!
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'w') { |f| f.write("!#{Time.now}! strategy.rb\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'w') { |f| f.write("!#{Time.now}! #{params.inspect}\n") }
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{params.inspect}\n") }
         ticket = read_ticket(params)
         if ticket
           if resource = mapping.to.authenticate_with_cas_ticket(ticket)
@@ -46,10 +46,15 @@ module Devise
         
         service_url = ::Devise.cas_service_url(request.url, mapping)
         if ticket =~ /^PT-/
-          ::CASClient::ProxyTicket.new(ticket, service_url, params[:renew])
+          @ticket_item = ::CASClient::ProxyTicket.new(ticket, service_url, params[:renew])
         else
-          ::CASClient::ServiceTicket.new(ticket, service_url, params[:renew])
+          @ticket_item = ::CASClient::ServiceTicket.new(ticket, service_url, params[:renew])
         end
+				xml = ::CASClient.XmlResponse
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml}\n") }
+				
+				return @ticket_item
       end
     end
   end
