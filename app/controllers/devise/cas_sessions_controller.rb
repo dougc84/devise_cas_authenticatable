@@ -2,25 +2,20 @@ class Devise::CasSessionsController < Devise::SessionsController
   unloadable
   
   def new
-		File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! Devise::CasSessionsController\n") }
-		File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{params.inspect}\n") }
     unless returning_from_cas?
       redirect_to(cas_login_url)
     end
   end
   
   def service
-		Rails.logger.fatal params
     warden.authenticate!(:scope => resource_name)
     redirect_to after_sign_in_path_for(resource_name)
   end
   
   def unregistered
-		Rails.logger.fatal params
   end
   
   def destroy
-		Rails.logger.fatal params
     follow_url = nil
     destination_url = nil
     

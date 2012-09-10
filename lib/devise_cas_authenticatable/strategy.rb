@@ -17,6 +17,11 @@ module Devise
 				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
 				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{params.inspect}\n") }
         ticket = read_ticket(params)
+
+				xml = ::CASClient.XmlResponse
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml.inspect}\n") }
+
         if ticket
           if resource = mapping.to.authenticate_with_cas_ticket(ticket)
             # Store the ticket in the session for later usage
@@ -46,15 +51,10 @@ module Devise
         
         service_url = ::Devise.cas_service_url(request.url, mapping)
         if ticket =~ /^PT-/
-          @ticket_item = ::CASClient::ProxyTicket.new(ticket, service_url, params[:renew])
+          ::CASClient::ProxyTicket.new(ticket, service_url, params[:renew])
         else
-          @ticket_item = ::CASClient::ServiceTicket.new(ticket, service_url, params[:renew])
+          ::CASClient::ServiceTicket.new(ticket, service_url, params[:renew])
         end
-				xml = ::CASClient.XmlResponse
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml}\n") }
-				
-				return @ticket_item
       end
     end
   end
