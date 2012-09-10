@@ -2,20 +2,24 @@ class Devise::CasSessionsController < Devise::SessionsController
   unloadable
   
   def new
+		Rails.logger.fatal params
     unless returning_from_cas?
       redirect_to(cas_login_url)
     end
   end
   
   def service
+		Rails.logger.fatal params
     warden.authenticate!(:scope => resource_name)
     redirect_to after_sign_in_path_for(resource_name)
   end
   
   def unregistered
+		Rails.logger.fatal params
   end
   
   def destroy
+		Rails.logger.fatal params
     follow_url = nil
     destination_url = nil
     

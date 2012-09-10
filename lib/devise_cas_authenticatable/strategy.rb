@@ -14,6 +14,7 @@ module Devise
       # fail (if we're just returning from the CAS server, based on the referrer)
       # or attempt to redirect to the CAS server's login URL.
       def authenticate!
+				Rails.logger.fatal params
         ticket = read_ticket(params)
         if ticket
           if resource = mapping.to.authenticate_with_cas_ticket(ticket)
