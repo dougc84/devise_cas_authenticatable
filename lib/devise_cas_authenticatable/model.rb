@@ -30,6 +30,10 @@ module Devise
             resource = new(conditions) if (resource.nil? and ::Devise.cas_create_user?)
             return nil unless resource
             
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - ticket respond_to?\n") }
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.public_methods.inspect}\n") }
+						
+
             if resource.respond_to? :cas_extra_attributes=
               resource.cas_extra_attributes = ticket.respond_to?(:extra_attributes) ? ticket.extra_attributes : ticket.response.extra_attributes
             end

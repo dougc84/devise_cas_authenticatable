@@ -18,7 +18,7 @@ module Devise
 
 				xml = ::CASClient::XmlResponse
 				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml.inspect}\n") }
+				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml.methods}\n") }
 
         if ticket
           if resource = mapping.to.authenticate_with_cas_ticket(ticket)
