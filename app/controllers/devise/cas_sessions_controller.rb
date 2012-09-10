@@ -2,7 +2,7 @@ class Devise::CasSessionsController < Devise::SessionsController
   unloadable
   
   def new
-		Rails.logger.fatal params
+		File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'w') { |f| f.write("!#{Time.now}! #{params.inspect}\n") }
     unless returning_from_cas?
       redirect_to(cas_login_url)
     end
