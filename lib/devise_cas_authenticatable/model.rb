@@ -44,6 +44,7 @@ module Devise
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{::Devise.get_cas_validate_url}\n") }
 						
 					rescue Exception => e
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{e}\n") }
 						
 					end
 					
