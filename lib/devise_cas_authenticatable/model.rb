@@ -19,6 +19,28 @@ module Devise
           ::Devise.cas_client.validate_service_ticket(ticket) unless ticket.has_been_validated?
 					begin
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      uri = URI.parse(validate_url)
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      h = uri.query ? query_to_hash(uri.query) : {}
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      h['service'] = st.service
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      h['ticket'] = st.ticket
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      h['renew'] = "1" if st.renew
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      h['pgtUrl'] = proxy_callback_url if proxy_callback_url
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      uri.query = hash_to_query(h)
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+			      response = request_cas_response(uri, ValidationResponse)
+				    #   st.user = response.user
+				    #   st.extra_attributes = response.extra_attributes
+				    #   st.pgt_iou = response.pgt_iou
+				    #   st.success = response.is_success?
+				    #   st.failure_code = response.failure_code
+				    #   st.failure_message = response.failure_message
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{::Devise.get_cas_validate_url}\n") }
 						
 					rescue Exception => e
@@ -28,21 +50,6 @@ module Devise
 					
 
 			    # def validate_service_ticket(st)
-			    #   uri = URI.parse(validate_url)
-			    #   h = uri.query ? query_to_hash(uri.query) : {}
-			    #   h['service'] = st.service
-			    #   h['ticket'] = st.ticket
-			    #   h['renew'] = "1" if st.renew
-			    #   h['pgtUrl'] = proxy_callback_url if proxy_callback_url
-			    #   uri.query = hash_to_query(h)
-			    # 
-			    #   response = request_cas_response(uri, ValidationResponse)
-			    #   st.user = response.user
-			    #   st.extra_attributes = response.extra_attributes
-			    #   st.pgt_iou = response.pgt_iou
-			    #   st.success = response.is_success?
-			    #   st.failure_code = response.failure_code
-			    #   st.failure_message = response.failure_message
 			    # 
 			    #   return st
 			    # end
