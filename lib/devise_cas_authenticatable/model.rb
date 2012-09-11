@@ -19,6 +19,9 @@ module Devise
           ::Devise.cas_client.validate_service_ticket(ticket) unless ticket.has_been_validated?
 					begin
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
+						validate_url = Devise::get_cas_validate_url("http://checkout.art.vcu.edu", mapping)
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - #{validate_url}\n") }
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
 			      uri = URI.parse(validate_url)
 						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! model.rb - get_cas_validate_url\n") }
 			      h = uri.query ? query_to_hash(uri.query) : {}

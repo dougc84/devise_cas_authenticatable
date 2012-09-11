@@ -106,6 +106,10 @@ module Devise
     cas_action_url(base_url, mapping, "unregistered")
   end
 
+	def self.get_cas_validate_url(base_url, mapping)
+		cas_action_url(base_url, mapping, "serviceValidate")
+	end
+
   private
   def self.cas_action_url(base_url, mapping, action)
     u = URI.parse(base_url)
