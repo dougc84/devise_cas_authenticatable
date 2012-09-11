@@ -106,14 +106,10 @@ module Devise
     cas_action_url(base_url, mapping, "unregistered")
   end
 
-	# def self.cas_validate
-	# 	if session['cas_last_valid_ticket']
-	# 		
-	# 	else
-	# 		raise "OHNO"
-	# 	end
-	# end
-  
+	def self.get_cas_validate_url
+		self.cas_validate_url
+	end
+
   private
   def self.cas_action_url(base_url, mapping, action)
     u = URI.parse(base_url)

@@ -24,9 +24,6 @@ module Devise
               session['cas_last_valid_ticket_store'] = true
             end
 						session['cas_ticket'] = ticket.ticket
-						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
-						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.ticket}\n") }
-
             success!(resource)
           elsif ticket.is_valid?
             username = ticket.respond_to?(:user) ? ticket.user : ticket.response.user
