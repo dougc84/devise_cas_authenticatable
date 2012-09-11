@@ -16,10 +16,6 @@ module Devise
       def authenticate!
         ticket = read_ticket(params)
 
-				xml = ::CASClient::XmlResponse
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
-				File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{xml.methods}\n") }
-
         if ticket
           if resource = mapping.to.authenticate_with_cas_ticket(ticket)
             # Store the ticket in the session for later usage
@@ -27,6 +23,9 @@ module Devise
               session['cas_last_valid_ticket'] = ticket.ticket
               session['cas_last_valid_ticket_store'] = true
             end
+						session['cas_ticket'] = ticket.ticket
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! strategy.rb\n") }
+						File.open(Rails.root.join('/srv/checkout/current/log/params.log'), 'a') { |f| f.write("!#{Time.now}! #{ticket.ticket}\n") }
 
             success!(resource)
           elsif ticket.is_valid?
