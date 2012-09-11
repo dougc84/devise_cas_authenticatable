@@ -23,7 +23,6 @@ module Devise
               session['cas_last_valid_ticket'] = ticket.ticket
               session['cas_last_valid_ticket_store'] = true
             end
-						session['cas_ticket'] = ticket.ticket
             success!(resource)
           elsif ticket.is_valid?
             username = ticket.respond_to?(:user) ? ticket.user : ticket.response.user

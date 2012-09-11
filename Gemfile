@@ -7,4 +7,4 @@ group :test do
   gem 'castronaut', :git => 'https://github.com/nbudin/castronaut.git', :branch => 'dam5s-merge'
 end
 
-gem 'rubycas-client', "2.3.9", git: 'git://github.com/dougc84/rubycas-client.git'
+gem 'rubycas-client', "2.3.10", git: 'git://github.com/dougc84/rubycas-client.git'
