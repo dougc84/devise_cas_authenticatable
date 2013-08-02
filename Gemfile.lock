@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/dougc84/rubycas-client.git
-  revision: 542f4d454188cb6dc8b0817f9d6d02ac7fd6ddce
+  revision: dcf33f0a6339c61030a974875b6e46de28addc70
   specs:
-    rubycas-client (2.3.11)
+    rubycas-client (2.3.12)
       activesupport
 
 GIT
@@ -21,7 +21,7 @@ GIT
 PATH
   remote: .
   specs:
-    devise_cas_authenticatable (1.1.7)
+    devise_cas_authenticatable (1.1.20)
       devise (>= 1.0.6)
 
 GEM
@@ -57,7 +57,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.6)
     arel (2.2.1)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.1)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -70,7 +70,7 @@ GEM
       ffi (~> 1.0.6)
     coderay (0.9.8)
     crypt-isaac (0.9.1)
-    devise (2.1.2)
+    devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -175,7 +175,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -193,7 +193,7 @@ DEPENDENCIES
   pry
   rails (>= 3.0.7)
   rspec-rails (>= 2.6.1)
-  rubycas-client (= 2.3.11)!
+  rubycas-client (= 2.3.12)!
   sham_rack
   shoulda
   sqlite3-ruby
