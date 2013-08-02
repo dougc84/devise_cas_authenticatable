@@ -21,7 +21,7 @@ GIT
 PATH
   remote: .
   specs:
-    devise_cas_authenticatable (1.1.20)
+    devise_cas_authenticatable (1.1.21)
       devise (>= 1.0.6)
 
 GEM

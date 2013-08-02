@@ -31,8 +31,7 @@ module Devise
             
             if resource.respond_to? :cas_extra_attributes=
               # resource.cas_extra_attributes = ticket.respond_to?(:extra_attributes) ? ticket.extra_attributes : ticket.response.extra_attributes
-							# resource.cas_extra_attributes = ticket.response if ticket.respond_to?(:response)
-              resource.cas_extra_attributes = ticket
+							resource.cas_extra_attributes = ticket.response if ticket.respond_to?(:response)
             end
 						# if resource.respond_to? :cas_attributes=
 						# 	resource.cas_extra_attributes = ticket.respond_to?(:extra_attributes) ? ticket.attributes : ticket.response.attributes
